@@ -6,12 +6,12 @@ package com.rozacompany.clinic.security.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-//import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import com.rozacompany.clinic.security.RestAuthenticationEntryPoint;
 import com.rozacompany.clinic.service.UserService;
 
 @Configuration
@@ -19,6 +19,9 @@ import com.rozacompany.clinic.service.UserService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	RestAuthenticationEntryPoint authenticationEntryPoint;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder registry) throws Exception {
@@ -32,9 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests()
-				.antMatchers("/login.html", "/ur/**", "/build/development/ur/**", "/ext/**", "/login").permitAll().anyRequest()
-				.authenticated().and().formLogin().loginPage("/login.html");
-				//and().httpBasic();
+		http.csrf().disable().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and()
+				.authorizeRequests()
+				.antMatchers("/login.html", "/ur/**", "/build/development/ur/**", "/ext/**", "/login").permitAll()
+				.anyRequest().authenticated().and().formLogin();
 	}
 }

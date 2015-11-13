@@ -10,8 +10,7 @@ Ext.define('Unrestricted.view.login.Login', {
 	viewModel : 'login',
 	layout : 'anchor',
 	title: 'ពាក្យសុំចូលប្រើ',
-	//url : 'login',
-	standardSubmit: true,
+	url : 'login',
 	defaults : {
 		anchor : '100%'
 	},
