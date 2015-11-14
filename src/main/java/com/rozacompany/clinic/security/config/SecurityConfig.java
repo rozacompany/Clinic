@@ -5,11 +5,13 @@ package com.rozacompany.clinic.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.rozacompany.clinic.security.RestAuthenticationEntryPoint;
 import com.rozacompany.clinic.service.UserService;
@@ -24,8 +26,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	RestAuthenticationEntryPoint authenticationEntryPoint;
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder registry) throws Exception {
-		registry.userDetailsService(userService);
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		authenticationProvider.setUserDetailsService(userService);
+		authenticationProvider.setPasswordEncoder(passwordEncoder);
+		//auth.userDetailsService(userService);
+		auth.authenticationProvider(authenticationProvider);
 	}
 
 	@Override

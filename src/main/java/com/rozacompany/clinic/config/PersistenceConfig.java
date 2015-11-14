@@ -54,7 +54,7 @@ public class PersistenceConfig {
 
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		vendorAdapter.setGenerateDdl(Boolean.TRUE);
-		vendorAdapter.setShowSql(Boolean.TRUE);
+		vendorAdapter.setShowSql(Boolean.TRUE);		
 
 		factory.setDataSource(dataSource());
 		factory.setJpaVendorAdapter(vendorAdapter);
@@ -62,7 +62,8 @@ public class PersistenceConfig {
 
 		Properties jpaProperties = new Properties();
 		jpaProperties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
-		jpaProperties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+		jpaProperties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));		
+		jpaProperties.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
 		factory.setJpaProperties(jpaProperties);
 
 		factory.afterPropertiesSet();
@@ -81,8 +82,6 @@ public class PersistenceConfig {
 		try {
 			InitialContext ic = new InitialContext();
 			dataSource = (DataSource) ic.lookup("java:comp/env/jdbc/clinicDB");
-//			JndiTemplate jndiTemplate = new JndiTemplate();
-//			dataSource = (DataSource) jndiTemplate.lookup("java:comp/env/jdbc/clinicDB");
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());
 		}
