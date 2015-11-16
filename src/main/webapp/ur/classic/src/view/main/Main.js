@@ -8,9 +8,8 @@
 Ext.define('Unrestricted.view.main.Main', {
     extend: 'Ext.panel.Panel',
     xtype: 'app-main',
-    requires: [
-        'Ext.plugin.Viewport', 'Unrestricted.view.login.Login'
-    ],    
+    requires : [ 'Unrestricted.view.main.MainModel', 'Unrestricted.view.main.MainController', 'Ext.plugin.Viewport',
+                 'Unrestricted.view.login.Login'],
     controller: 'main',
     viewModel: 'main',    
     layout: 'center',

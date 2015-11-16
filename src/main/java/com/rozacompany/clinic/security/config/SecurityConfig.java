@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.rozacompany.clinic.security.LoginFailureHandler;
+import com.rozacompany.clinic.security.LoginSuccessHandler;
 import com.rozacompany.clinic.security.RestAuthenticationEntryPoint;
 import com.rozacompany.clinic.service.UserService;
 
@@ -25,13 +27,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	RestAuthenticationEntryPoint authenticationEntryPoint;
 
+	@Autowired
+	LoginSuccessHandler successHandler;
+
+	@Autowired
+	LoginFailureHandler failureHandler;
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		authenticationProvider.setUserDetailsService(userService);
 		authenticationProvider.setPasswordEncoder(passwordEncoder);
-		//auth.userDetailsService(userService);
 		auth.authenticationProvider(authenticationProvider);
 	}
 
@@ -45,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and()
 				.authorizeRequests()
 				.antMatchers("/login.html", "/ur/**", "/build/development/ur/**", "/ext/**", "/login").permitAll()
-				.anyRequest().authenticated().and().formLogin();
+				.anyRequest().authenticated().and().formLogin().successHandler(successHandler)
+				.failureHandler(failureHandler);
 	}
 }

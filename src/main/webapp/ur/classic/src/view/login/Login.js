@@ -8,9 +8,11 @@ Ext.define('Unrestricted.view.login.Login', {
 			'Unrestricted.view.login.LoginModel' ],
 	controller : 'login',
 	viewModel : 'login',
+	url : 'login',
 	layout : 'anchor',
 	title: 'ពាក្យសុំចូលប្រើ',
-	url : 'login',
+	bodyPadding: '10 0 0 0',
+	maxHeight: 200,
 	defaults : {
 		anchor : '100%'
 	},
@@ -19,17 +21,30 @@ Ext.define('Unrestricted.view.login.Login', {
 		fieldLabel : 'ឈ្មោះអ្នកប្រើ',
 		name : 'username',
 		itemId: 'username',
-		allowBlank : false
+		allowBlank : false,
+		listeners: {
+			afterrender: 'onUsernameAferRender'
+		}
 	}, {
 		fieldLabel : 'ពាក្យសម្ងាត់',
 		name : 'password',
 		itemId: 'password',
 		allowBlank : false,
 		inputType: 'password'
+	}, {
+		xtype: 'label',
+		cls: 'login-error',
+		text: 'សូម​ទោស មិន​ស្គាល់​ឈ្មោះ​អ្នក​ប្រើ ឬ​ពាក្យ​សម្ងាត់ទេ។',
+		bind: {
+			hidden: '{!isFailedLogin}'
+		}
 	} ],
 	buttons : [ {
 		text : 'ចូល',
 		formBind : true,
 		handler: 'onLoginClick'
-	} ]
+	}],
+	listeners: {
+		afterrender: 'onFormPanelAfterRender'
+	}
 });
