@@ -34,7 +34,7 @@
                 //profile = tags.phone ? 'modern' : 'classic';
             }
 
-            Ext.manifest = profile; // this name must match a build profile name
+            Ext.manifest = 'cl/' + profile; // this name must match a build profile name
 
             // This function is called once the manifest is available but before
             // any data is pulled from it.
@@ -47,7 +47,7 @@
     
     
     <!-- The line below must be kept intact for Sencha Cmd to build your application -->
-    <script id="microloader" data-app="3e311773-25d1-4344-bde7-25ea1a61cca2" type="text/javascript" src="bootstrap.js"></script>
+    <script id="microloader" data-app="3e311773-25d1-4344-bde7-25ea1a61cca2" type="text/javascript" src="cl/bootstrap.js"></script>
 
 </head>
 <body></body>

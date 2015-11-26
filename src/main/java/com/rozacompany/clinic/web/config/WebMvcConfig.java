@@ -5,6 +5,7 @@ package com.rozacompany.clinic.web.config;
 
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,11 +14,14 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import com.rozacompany.clinic.web.interceptor.RequestInterceptor;
 
 @Configuration
 @ComponentScan(basePackages = { "com.rozacompany.clinic.web" })
@@ -27,7 +31,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		super.addViewControllers(registry);
-//		registry.addViewController("login").setViewName("login");
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		super.addInterceptors(registry);
+		registry.addInterceptor(new RequestInterceptor());
 	}
 
 	@Bean
@@ -42,6 +51,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 		registry.addResourceHandler("/login.html").addResourceLocations("/ur/");
+		registry.addResourceHandler("/index.html").addResourceLocations("/cl/");
 	}
 
 	@Override

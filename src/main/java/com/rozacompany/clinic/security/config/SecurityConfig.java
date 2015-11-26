@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	LoginFailureHandler failureHandler;
-
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();

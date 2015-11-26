@@ -367,12 +367,12 @@
      *
      */
     "bootstrap": {
-        "base": "${app.dir}",
+        "base": "${app.dir}/..",
         
-        "manifest": "${build.id}.json",
+        "manifest": "cl/${build.id}.json",
         
-        "microloader": "bootstrap.js",
-        "css": "bootstrap.css"
+        "microloader": "cl/bootstrap.js",
+        "css": "cl/bootstrap.css"
     },
 
     /**
@@ -417,7 +417,7 @@
      */
     
     "output": {
-        "base": "${workspace.build.dir}/${build.environment}/${app.name}",
+        "base": "${workspace.build.dir}/${build.environment}/cl",
         "page": "index.html",
         "manifest": "${build.id}.json",
         "js": "${build.id}/app.js",

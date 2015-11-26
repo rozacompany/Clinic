@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
@@ -21,9 +20,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
-@ComponentScan(basePackages = {
-		"com.rozacompany.clinic" }, excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = {
-				"com.rozacompany.clinic.web.*" }) )
+@ComponentScan(basePackages = {"com.rozacompany.clinic" })
 @PropertySource(value = { "classpath:application.properties" })
 @EnableScheduling
 @EnableAspectJAutoProxy
