@@ -10,27 +10,22 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedSubgraph;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@NamedEntityGraph(name="User.roles", attributeNodes=@NamedAttributeNode("roles"))
-public class User implements UserDetails {
+@NamedEntityGraph(name = "User.roles.permissions", attributeNodes = @NamedAttributeNode(value = "roles", subgraph = "roles") , subgraphs = @NamedSubgraph(name = "roles", attributeNodes = @NamedAttributeNode("permissions") ) )
+public class User extends AbstractEntity implements UserDetails {
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+
 	@Column(nullable = false, unique = true)
 	private String username;
 	@Column(nullable = false)
@@ -41,22 +36,14 @@ public class User implements UserDetails {
 	private String firstName;
 	@Column(nullable = false, name = "last_name")
 	private String lastName;
-	@Column(name="active")
+	@Column(name = "active")
 	private boolean enabled;
 
 	@ManyToMany
 	@JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "user_id") , inverseJoinColumns = @JoinColumn(name = "role_id") )
-	private Set<Role> roles = new HashSet<>();
+	private Set<Role> roles = new HashSet<Role>();
 
 	public User() {
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getUsername() {
@@ -110,9 +97,8 @@ public class User implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> authorities = new ArrayList<>();
-		Set<Role> userRoles = this.getRoles();		
-		if(userRoles != null)
-		{
+		Set<Role> userRoles = this.getRoles();
+		if (userRoles != null) {
 			for (Role role : userRoles) {
 				SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
 				authorities.add(authority);

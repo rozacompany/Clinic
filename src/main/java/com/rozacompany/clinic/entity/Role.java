@@ -3,32 +3,27 @@
  */
 package com.rozacompany.clinic.entity;
 
-import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
-public class Role implements Serializable {
+public class Role extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+
 	@Column(nullable = false)
 	private String name;
 
+	@ManyToMany
+	@JoinTable(name = "Role_Permission", joinColumns = @JoinColumn(name = "role_id") , inverseJoinColumns = @JoinColumn(name = "permission_id") )
+	private Set<Permission> permissions = new HashSet<Permission>();
+
 	public Role() {
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -37,5 +32,13 @@ public class Role implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Set<Permission> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(Set<Permission> permissions) {
+		this.permissions = permissions;
 	}
 }
