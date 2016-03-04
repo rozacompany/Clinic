@@ -7,6 +7,6 @@ Ext.define('Unrestricted.view.login.LoginModel', {
     alias: 'viewmodel.login',
 
     data: {
-        isFailedLogin: false,        
+        isFailedLogin: false        
     }
 });

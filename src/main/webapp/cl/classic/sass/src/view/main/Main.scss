@@ -9,13 +9,12 @@
     $ui-header-icon-spacing: 10px,
     $ui-header-text-margin: 0px,
     $ui-header-font-size: 16px,
-    $ui-header-font-weight: bold
+    $ui-header-font-weight: bold,
+    $ui-header-glyph-color: #fff
 );
 
-.logo {
-	background-image: url(../../resources/images/logo.png) !important;
-}
-
 .x-title-icon-navigation {
-    line-height: 15px;
+    font-family: FontAwesome;    
+   	font-size: 26px;
+   	line-height: 24px;
 }

@@ -1,5 +1,5 @@
 var Ext = Ext || {};
-Ext.manifest = Ext.manifest || "cl/modern.json";
+Ext.manifest = Ext.manifest || "cl/classic.json";
 // @tag core
 // @define Ext.Boot
 

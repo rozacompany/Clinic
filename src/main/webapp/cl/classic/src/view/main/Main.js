@@ -30,9 +30,21 @@ Ext.define('Clinic.view.main.Main', {
                 text: '{name}'
             }
         },
-        iconCls: 'logo'
+        iconCls: 'fa-heartbeat'
     },   
-
+    tools:[{
+    	type: 'gear',
+    	tooltip: 'Settings',
+        handler: function(event, toolEl, panelHeader) {
+        }
+    },
+    {
+        type:'help',
+        tooltip: 'Get Help',
+        callback: function(panel, tool, event) {
+            // show help here
+        }
+    }],
 //    defaults: {
 //        bodyPadding: 20        
 //    },

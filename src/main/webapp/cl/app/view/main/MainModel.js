@@ -7,6 +7,6 @@ Ext.define('Clinic.view.main.MainModel', {
     alias: 'viewmodel.main',
 
     data: {
-        name: 'គ្លីនិក អ៊ីទួនស៊ាង',
+        name: 'គ្លីនិក អ៊ីទួនស៊ាង'
     }
 });

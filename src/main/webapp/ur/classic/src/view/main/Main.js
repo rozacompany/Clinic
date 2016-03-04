@@ -11,9 +11,17 @@ Ext.define('Unrestricted.view.main.Main', {
     requires : [ 'Unrestricted.view.main.MainModel', 'Unrestricted.view.main.MainController', 'Ext.plugin.Viewport',
                  'Unrestricted.view.login.Login'],
     controller: 'main',
-    viewModel: 'main',    
+    viewModel: 'main',
+    ui: 'title',
+    header: {
+        title: {
+            bind: {
+                text: '{name}'
+            }
+        },
+        iconCls: 'fa-heartbeat'
+    },
     layout: 'center',
-    title: 'គ្លីនិក អ៊ីទួនស៊ាង',
     url : 'j_spring_security_check',
     items: [{
         xtype: 'login',
